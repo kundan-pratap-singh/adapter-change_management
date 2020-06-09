@@ -73,9 +73,9 @@ constructUri(serviceNowTable, query = null) {
  * @return {boolean} Returns true if instance is hibernating. Otherwise returns false.
  */
  isHibernating(response) {
-   return response.body.includes('Instance Hibernating page')
-   && response.body.includes('<html>')
-   && response.statusCode === 200;
+  return response.body.includes('Instance Hibernating page')
+  && response.body.includes('<html>')
+  && response.statusCode === 200;
 }
 
 
@@ -108,11 +108,14 @@ constructUri(serviceNowTable, query = null) {
 
    
     if (error) {
-      processedError = 'Error present.';
+      console.error('Error present.');
+      processedError = error;
     } else if (!validResponseRegex.test(response.statusCode)) {
-      processedError = 'Bad response code';
+      console.error('Bad response code.');
+      processedError = response;
     } else if (this.isHibernating(response)) {
-      processedError = 'Service Now instance hibernating';
+      processedError = 'Service Now instance is hibernating';
+      console.error(processedError);
     } else {
       processedResults = response;
     }
@@ -201,7 +204,7 @@ sendRequest(callOptions, callback) {
   get(callback) {
     let getCallOptions = { ...this.options };
     getCallOptions.method = 'GET';
-//    getCallOptions.query = 'sysparm_limit=1';
+    getCallOptions.query = 'sysparm_limit=1';
     this.sendRequest(getCallOptions, (results, error) => callback(results, error));
   }
 
