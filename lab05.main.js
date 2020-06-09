@@ -40,6 +40,8 @@ class ServiceNowAdapter extends EventEmitter {
     }
     console.log(`\nResponse returned :\n${JSON.stringify(responseData)}`)
 }
+
+
   /**
    * Here we document the adapter properties.
    * @typedef {object} ServiceNowAdapter~adapterProperties - Adapter
@@ -158,7 +160,8 @@ class ServiceNowAdapter extends EventEmitter {
      * Note how the object was instantiated in the constructor().
      * get() takes a callback function.
      */
-     this.connector.get(callback);
+    this.connector.get(callback);
+
   }
 
   /**
